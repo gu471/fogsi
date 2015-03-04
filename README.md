@@ -1,7 +1,10 @@
 #FOGSI - FOG- & OPSI-Server
 
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
 - [FOGSI - FOG- & OPSI-Server](#)
 	- [Voraussetzungen](#)
+		- [Konsole für die Verbindung zum Server (copy/paste möglich!)](#)
 	- [Server-Installation](#)
 		- [OPSI](#)
 		- [FOG](#)
