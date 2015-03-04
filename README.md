@@ -1,5 +1,22 @@
 #FOGSI - FOG- & OPSI-Server
 
+- [FOGSI - FOG- & OPSI-Server](#)
+	- [Voraussetzungen](#)
+	- [Server-Installation](#)
+		- [OPSI](#)
+		- [FOG](#)
+	- [Hardware-Voraussetzungen der Client-PCs](#)
+	- [Nutzung der Clients (erste Tests):](#)
+		- [FOG:](#)
+		- [OPSI:](#)
+	- [Workarounds und Client-Konfigurationen:](#)
+		- [Windows installieren](#)
+		- [FOG-Client installieren](#)
+		- [OPSI-Installation vorbereiten](#)
+		- [Deployment - WindowsImage](#)
+		- [Deployment - Software](#)
+			- [Anpassung der Starthomepage von Firefox (google.de als Start)](#)
+
 ## Voraussetzungen
 
 Mögliche Testumgebung: [Oracle VirtualBox](https://www.virtualbox.org/wiki/Downloads)
@@ -14,6 +31,18 @@ Bei der Betriebssysteminstallation sollten "nichtfreie" Pakte mit in die aptitud
 Der Netzwerkname sollte sinnvoll geändert werden, um den PC über die Browser auch ohne IP einfach erreichen zu können. Zudem sollte die Domäne angegeben werden, damit der PC über den FQDN ordentlich angesprochen und das Netzwerk auch entsprechend von Server erreicht werden kann.
 
 Als Packete sind lediglich die Standard-Tools und der SSH-Server nötig.
+
+### Konsole für die Verbindung zum Server (copy/paste möglich!)
+
+Zur Konfiguration des Servers nach der Betriebssysteminstallation empfielt sich [cygwin](https://cygwin.com/install.html).
+Bei der Installation muss das ssh-Paket installiert werden.
+
+Eine Verbindung zum Server öffnet man mit dem Befehl: `ssh benutzername@IP|Servername`.
+
+Bei der unten vorgeschlagenen Installation wäre es: `ssh root@IP`.
+
+Beim ersten Verbinden wird man dazu aufgefordert einen Key zu akzeptieren. Das bestätigt man mit `y`.
+Sollte sich der Key in Zukunft ändern (Anderer Server, Neuinstallation des Servers) verweigert cygwin den Verbindungsaufbau, weil der Server theoretisch kompromittiert sein könnte, da sich der Schlüssel geändert hat.
 
 ## Server-Installation
 
@@ -214,6 +243,8 @@ Hier erstellt man eine Aufgabe:
 Hintergrund des Skripts:
 Nach dem Deployment ändert FOG automatisch den PC-Namen in den im Interface eingestellten und startet automatisch neu. Aus diesem Grund darf OPSI nicht beim ersten Start installiert werden. Sobald der PC nicht mehr das Format `*FogImage*` erfüllt, startet das Skript die Installation von OPSI, dadurch wird der PC auch mit dem korrekten PC-Namen im OPSI registriert.
 Das Anlegen des Ordners `C:\cmds\opsiinstalled` ist nötig, da nach der Installation der Neustart so schnell durchgeführt wird, dass der Ordner des OPSI-Clients mit den Anmeldeinformationen nicht gelöscht werden kann. Das wird dann beim nächsten Neustart nachgeholt.
+
+Sollte OPSI schon auf dem Image installiert sein, meldet sich OPSI nicht automatisch nach dem Deployment am Server mit dem neuen Computernamen, wodurch OPSI entweder manuell auf dem PC neu installiert werden muss, oder der PC im Interface manuell mit der __IP__ nachgetragen werden muss. Das Nutzen des Computernames beim nachtragen funktioniert nicht!
 
 OPSI ist jetzt installiert und es kann weitere Software nachinstalliert werden. Die Installation dieser Software erfolgt automatisch beim Start des PCs vor dem Einloggen eines Nutzers. Kann aber über "on-demand" im OPSI-Interface erzwungen werden.
 
