@@ -65,6 +65,8 @@ aptitude install opsi-configed
 aptitude install openjdk-7-jre icedtea-7-plugin
 ```
 
+OPSI ist nun unter `https://<serverip|servername>:4447/configed/` erreichbar. Als Nutzer wird der während der Installation eingerichtete verwendet.
+
 ### FOG
 
 Da das Imaging der PCs über FOG laufen soll, müssen wir zuerst die OPSI-Pakete bei einem zukünftigen apt-get upgrade ignorieren lassen, um sicher zu gehen, dass OPSI die FOG-Installation nicht zerschießt:
@@ -138,3 +140,30 @@ exit
 ```
 
 Vor der Aufnahme eines PCs sollte unter `Image Management->Create Image` im FOG ein Image erstellt werden. Als Image-Typ sollte `Multipartition, Singledisk` ausgewählt werden.
+
+## Hardware-Voraussetzungen der Client-PCs
+
+BIOS:
+```
+BOOT:
+  Secureboot: aus
+	boot order:	*, Network, HDD, *
+UEFI: legacy
+PXE: an, IPv4 an, IPv6 aus
+```
+
+## Nutzung der Clients:
+
+### FOG:
+
+Bei dem ersten Start eines PCs wird das FOG-Image geladen und man kann jetzt den PC in das FOG-Verzeichnis aufnehmen.
+Die dort getätigten Angaben kann man im Web-FrontEnd wieder ändern.
+
+Damit der FOG-Service vollumfänglich genutzt werden kann, muss noch der FOG-Service installiert werden.
+Diesen findet man unter `http://<serverip|servername>/fog/client`. Man sollte alle Teilservices installieren, die Konfiguation erfolgt über das Web-FrontEnd.
+
+### OPSI:
+
+Damit der Client mit OPSI kommunizieren kann, muss man ihn in der Regel manuell einbinden, nachdem man den Client-Service eingebunden hat. Das muss prinzipiell auch manuell für jeden Client nach dem Aufspielen eines Images durchgeführt werden (dazu später mehr).
+
+Den Client findet man unter `\\<serverip|servername>\opsi_depot\opsi-client-agent`. Zum Installieren führt man die silent_setup.cmd aus, nachdem man im Unterordner `\files\opsi\cfg` den Benutzernamen und das Passwort eingetragen hat.
