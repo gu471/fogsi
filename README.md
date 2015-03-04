@@ -230,3 +230,56 @@ Dadurch führt der PC eine Schnellinstallation durch, bei der unter anderen SIDs
 Unter `C:\cmds\sysprep\` befinden sich zwei Skripte. Beide geben der Schnellinstallation Antworten vor. Option 1 setzt die Windowsaktivierung zurück, wodurch sich Windows automatisch beim Neustart aktiviert (max. 3 Mal möglich bei MAK-Lizenzen). Bei Option 2 wird dieses Zurücksetzen umgangen. Der Rest der beiden Sktipte ist identisch und sollte vor einem Deploy nochmal überprüft werden, um es den Gegebenheiten anzupassen. (Windows System Image Manager aus dem WAIK)
 
 Soll das Image in den Deploy-Modus gesetzt werden (Option 1 + 2), ist es wichtig, dass bei Start danach sofort das Image erzeugt wird!
+
+### Deployment - Software
+
+Unter `\\<serverip|servername>\opsi_depot\opsi-setup-detector` findet man ein Programm, mit dem man Installationen für das Deployment via OPSI vorbereiten kann.
+
+Sollten Installationsdateien nicht erkannt werde, sollte man schauen, ob es für das Programm eine .msi gibt.
+Getestet wurde es erfolgreich mit OpenOffice und Mozilla. Ebenso mit IrfanView, für das man im Netz eine Anleitung findet.
+Generell ist jede zu installierende Software ein Problem für sich. Für oft genutzte Software findet man aber in der Regel im Netz Walkthrougs.
+
+Der vom detector erzeugte Ordner ist nach `\\opsi\opsi_workbench` zu kopieren.
+
+Auf dem Server sind nun folgende Befehle auszuführen:
+
+```
+cd /home/opsiproducts/<software>
+opsi-makeproductfile
+opsi-package-manager -i <software>.opsi
+```
+
+Nun kann die Software über das Interface an die Clients verteilt werden.
+
+#### Anpassung der Starthomepage von Firefox (google.de als Start)
+
+- [x] msi mit setupdetector öffnen und speichern
+- [x] mozilla.cfg aus der msi extrahieren (7zip)
+- [x] mozilla.cfg erweitern um:
+
+> lockPref("browser.startup.homepage", "http://www.google.de");
+
+
+- [x] mozilla.cfg in `/home/opsiproducts/<firefox>/CLIENT_DATA/` kopieren (bzw. `\\<serverip|servername\opsi-workbench\<firefox>\CLIENT_DATA\`
+- [x] Setupskript erweitern:
+
+nach:	`Winbatch_install_msi`
+
+hinzufügen: `Files_StartPage`
+
+nach dem darauf folgenden `endif`
+hinzufügen:
+```
+[Files_StartPage]
+copy "%SCRIPTPATH%\mozilla.cfg" "C:\Program Files (x86)\Mozilla Firefox\"
+```
+
+Paket wie oben beschrieben bereitstellen (auf der Serverkonsole):
+
+```
+cd /home/opsiproducts/<firefox>
+opsi-makeproductfile
+opsi-package-manager -i <firefox>.opsi
+```
+
+`%SCRIPTPATH%` verweist dabei auf den mit `opsi-package-manager -i <firefox>.opsi` automatisch angelegten Ordner `\\<serverip|servername\opsi-depot\<firefox>\CLIENT_DATA\`.
