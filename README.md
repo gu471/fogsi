@@ -228,3 +228,5 @@ Mit eben diesem Skript, kann man auch den PC in den OOBE (Out Of the Box Experie
 Dadurch führt der PC eine Schnellinstallation durch, bei der unter anderen SIDs neu gesetzt werden. Das ist wichtig, damit es in der Domäne nicht zu Irritationen kommt. Insbesondere ist das für die zukünfitgen Windows-Updates wichtig, da der WSUS-Server anscheinend eine Datenbank mit Clientkonfigurationen besitzt.
 
 Unter `C:\cmds\sysprep\` befinden sich zwei Skripte. Beide geben der Schnellinstallation Antworten vor. Option 1 setzt die Windowsaktivierung zurück, wodurch sich Windows automatisch beim Neustart aktiviert (max. 3 Mal möglich bei MAK-Lizenzen). Bei Option 2 wird dieses Zurücksetzen umgangen. Der Rest der beiden Sktipte ist identisch und sollte vor einem Deploy nochmal überprüft werden, um es den Gegebenheiten anzupassen. (Windows System Image Manager aus dem WAIK)
+
+Soll das Image in den Deploy-Modus gesetzt werden (Option 1 + 2), ist es wichtig, dass bei Start danach sofort das Image erzeugt wird!
