@@ -265,6 +265,24 @@ Unter `C:\cmds\sysprep\` befinden sich zwei Skripte. Beide geben der Schnellinst
 
 Soll das Image in den Deploy-Modus gesetzt werden (Option 1 + 2), ist es wichtig, dass bei Start danach sofort das Image erzeugt wird!
 
+#### Treiberbereitstellung
+
+Vor dem Deployment sollten möglichtst alle Treiber für das neue System bereitgestellt werden. Insbesondere ist hier der Netzwerktreiber wichtig!
+
+Zur Installation während der OOBE, kopiert man die Treiber z.B. nach `C:\drv\graka\`, `C:\drv\net`, `C:\drv\chip\`, `C:\drv\wifi`. Damit Windows diese Pfade beim ersten Start auf verfügbare Treiber untersucht, muss in der Registry der Key:
+
+```
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\]
+Devicepath=%SystemRoot%\inf
+```
+
+Erweitert werden:
+
+```
+[HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\]
+Devicepath=%SystemRoot%\inf;C:\drv\graka;C:\drv\net;C:\drv\chip;C:\drv\wifi
+```
+
 ### Deployment - Software
 
 Unter `\\<serverip|servername>\opsi_depot\opsi-setup-detector` findet man ein Programm, mit dem man Installationen für das Deployment via OPSI vorbereiten kann.
