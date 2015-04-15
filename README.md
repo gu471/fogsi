@@ -30,11 +30,13 @@ Betriebssystem: [Debian Wheezy] (https://www.debian.org/distrib/) (Net-Install)
 Sollte der PC in einer VM laufen, dann sollte das Netzwerk über eine Netzwerkbrücke angebunden werden.
 Die Festplattengröße sollte großzügig ausfallen, da die Images unter `/images` auf dem System abgelegt werden. Andernfalls sollten externe Speicher eingebunden werden.
 
-Bei der Betriebssysteminstallation sollten "nichtfreie" Pakte mit in die aptitude-Links aufgenommen werden. 
+Bei der Betriebssysteminstallation sollten "nichtfreie" Pakete mit in die aptitude-Links aufgenommen werden. 
 
 Der Netzwerkname sollte sinnvoll geändert werden, um den PC über die Browser auch ohne IP einfach erreichen zu können. Zudem sollte die Domäne angegeben werden, damit der PC über den FQDN ordentlich angesprochen und das Netzwerk auch entsprechend von Server erreicht werden kann.
 
-Als Packete sind lediglich die Standard-Tools und der SSH-Server nötig.
+Als Pakete sind lediglich die Standard-Tools und der SSH-Server nötig.
+
+Software-RAID 1: https://wiki.debian.org/DebianInstaller/SoftwareRaidRoot
 
 ### Konsole für die Verbindung zum Server (copy/paste möglich!)
 
