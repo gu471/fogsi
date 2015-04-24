@@ -338,3 +338,15 @@ opsi-package-manager -i <firefox>.opsi
 ```
 
 `%SCRIPTPATH%` verweist dabei auf den mit `opsi-package-manager -i <firefox>.opsi` automatisch angelegten Ordner `\\<serverip|servername\opsi-depot\<firefox>\CLIENT_DATA\`.
+
+## Problembehandlung
+
+### Multicast hängt beim Start:
+Alle Tasks schließen und:
+```
+service mysql restart
+service apache2 restart
+service FOGMulticastManager restart
+service FOGImageReplicator restart
+service FOGScheduler restart
+```
